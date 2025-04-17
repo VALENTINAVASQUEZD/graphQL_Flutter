@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:app_graphql/models/user.dart';
+import 'package:app_graphql/models/country.dart';
 
-class UserDetailScreen extends StatelessWidget {
-  final User user;
+class CountryDetailScreen extends StatelessWidget {
+  final Country country;
 
-  const UserDetailScreen({super.key, required this.user});
+  const CountryDetailScreen({super.key, required this.country});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Detalles del Usuario')),
+      appBar: AppBar(
+        title: Text('Detalles del País'),
+        backgroundColor: Colors.orange,
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -18,12 +21,12 @@ class UserDetailScreen extends StatelessWidget {
             Center(
               child: CircleAvatar(
                 radius: 50,
-                backgroundColor: Colors.blue.shade100,
+                backgroundColor: Colors.orange.shade100,
                 child: Text(
-                  user.name.substring(0, 1).toUpperCase(),
+                  country.code,
                   style: TextStyle(
                     fontSize: 40,
-                    color: Colors.blue,
+                    color: Colors.orange,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -37,13 +40,18 @@ class UserDetailScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildDetailRow('ID', '${user.id}'),
+                    _buildDetailRow('Nombre', country.name),
                     Divider(),
-                    _buildDetailRow('Nombre', user.name),
+                    _buildDetailRow('Capital', country.capital ?? 'N/A'),
                     Divider(),
-                    _buildDetailRow('Email', user.email),
+                    _buildDetailRow('Moneda', country.currency ?? 'N/A'),
                     Divider(),
-                    _buildDetailRow('Teléfono', user.phone),
+                    _buildDetailRow(
+                      'Idiomas',
+                      country.languages.isNotEmpty
+                          ? country.languages.join(', ')
+                          : 'N/A',
+                    ),
                   ],
                 ),
               ),
